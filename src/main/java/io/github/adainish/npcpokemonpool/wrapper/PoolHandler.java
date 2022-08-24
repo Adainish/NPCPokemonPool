@@ -19,8 +19,7 @@ public class PoolHandler {
     public List <PoolPokemon> poolPokemonList = new ArrayList <>();
 
     public PoolHandler() {
-        loadPoolPokemon();
-        loadPools();
+
     }
 
     public void loadPools() {
@@ -38,6 +37,7 @@ public class PoolHandler {
     }
 
     public void loadPoolPokemon() {
+        poolPokemonList.clear();
         CommentedConfigurationNode node = PoolConfig.getConfig().get().node("PoolPokemon");
         Map nodemap = node.childrenMap();
         for (Object obj: nodemap.keySet()) {

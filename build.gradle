@@ -18,7 +18,13 @@ java {
     archivesBaseName = 'NPCPokemonPool'
     toolchain.languageVersion = JavaLanguageVersion.of(8)
 }
-
+//Enable § instead of long Characters
+tasks.withType(JavaCompile)
+        {
+            task ->
+                task.options.encoding = 'UTF-8'
+                task.options.fork = true
+        }
 minecraft {
     // The mappings can be changed at any time and must be in the following format.
     // Channel:   Version:

@@ -31,6 +31,7 @@ public class EditorItem {
             }
         }
         itemStack.getOrCreateChildTag("display").put("Lore", nbtLore);
+        itemStack.getTag().putBoolean("poolEditor", true);
     }
 
     public void giveItemStack(PlayerEntity entity) {

@@ -29,7 +29,7 @@ public class PoolPokemon {
 
     public PoolPokemon(String identifier) {
         this.identifier = identifier;
-        this.weight = PoolConfig.getConfig().get().node("PoolPokemon", identifier, "Weight").getInt();
+        this.weight = PoolConfig.getConfig().get().node("PoolPokemon", this.identifier, "Weight").getInt();
         pokemon = generateGymPokemon();
     }
 

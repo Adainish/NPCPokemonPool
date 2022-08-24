@@ -13,6 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLConfig;
 import net.minecraftforge.fml.loading.FMLPaths;
@@ -62,12 +63,16 @@ public class NPCPokemonPool {
     }
 
     @SubscribeEvent
-    public void onServerStarting(FMLServerStartedEvent event) {
-        Pixelmon.EVENT_BUS.register(new EndBattleListener());
-        MinecraftForge.EVENT_BUS.register(new InteractListener());
+    public void onServerStarting(FMLServerStartingEvent event) {
         initConfig();
         loadConfig();
-        poolHandler = new PoolHandler();
+    }
+
+    @SubscribeEvent
+    public void onServerStarted(FMLServerStartedEvent event) {
+        Pixelmon.EVENT_BUS.register(new EndBattleListener());
+        MinecraftForge.EVENT_BUS.register(new InteractListener());
+        reload();
     }
 
     public void initDirs() {
@@ -88,6 +93,8 @@ public class NPCPokemonPool {
         initConfig();
         loadConfig();
         poolHandler = new PoolHandler();
+        poolHandler.loadPoolPokemon();
+        poolHandler.loadPools();
     }
 
 }

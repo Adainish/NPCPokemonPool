@@ -18,12 +18,19 @@ public class Pool {
 
     public void loadPoolPokemon() {
         pokemonList.clear();
-        for (PoolPokemon poke: NPCPokemonPool.poolHandler.poolPokemonList) {
-            int weight = poke.weight;
-            for (int i = 0; i < weight; i++) {
-                pokemonList.add(poke);
+        try {
+            for (PoolPokemon poke: NPCPokemonPool.poolHandler.poolPokemonList) {
+                if (poke == null)
+                    continue;
+                int weight = poke.weight;
+                for (int i = 0; i < weight; i++) {
+                    pokemonList.add(poke);
+                }
             }
+        } catch (Throwable throwable) {
+            throwable.printStackTrace();
         }
+
     }
 
 
