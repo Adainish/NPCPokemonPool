@@ -40,9 +40,13 @@ public class Pool {
         }
         List<PoolPokemon> clonedList = new ArrayList <>();
         clonedList.addAll(pokemonList);
-
-        for (int i = 0; i < 6; i++) {
+        for (int i = 1; i < 7; i++) {
+            if (i >= clonedList.size()) {
+                NPCPokemonPool.log.warn("Not enough pokemon existed in pool %id% to assign a full team of 6".replace("%id%", identifier));
+                break;
+            }
             PoolPokemon poolPokemon = RandomHelper.getRandomElementFromCollection(clonedList);
+            clonedList.removeIf(pm -> pm.identifier.equals(poolPokemon.identifier));
             trainer.getPokemonStorage().add(poolPokemon.pokemon);
         }
     }
