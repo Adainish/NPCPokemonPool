@@ -13,10 +13,11 @@ public class EndBattleListener {
     public void onPlayerWonEvent(BeatTrainerEvent event) {
         NPCTrainer trainer = event.trainer;
         if (NPCPokemonPool.poolHandler.isPoolNPC(trainer)) {
-            String npcPool = trainer.getPersistentData().getString("assignedPool");
+            String npcPool = trainer.getPersistentData().getString("poolName");
             Pool pool = NPCPokemonPool.poolHandler.poolCache.get(npcPool);
-            if (pool == null)
+            if (pool == null) {
                 return;
+            }
             pool.setRandomParty(trainer);
         }
     }
@@ -25,7 +26,7 @@ public class EndBattleListener {
     public void onPlayerLostEvent(LostToTrainerEvent event) {
         NPCTrainer trainer = event.trainer;
         if (NPCPokemonPool.poolHandler.isPoolNPC(trainer)) {
-            String npcPool = trainer.getPersistentData().getString("assignedPool");
+            String npcPool = trainer.getPersistentData().getString("poolName");
             Pool pool = NPCPokemonPool.poolHandler.poolCache.get(npcPool);
             if (pool == null)
                 return;
