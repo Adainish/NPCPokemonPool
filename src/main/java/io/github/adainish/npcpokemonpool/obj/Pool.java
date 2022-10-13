@@ -47,11 +47,11 @@ public class Pool {
 
 
     public void setRandomParty(NPCTrainer trainer) {
+        trainer.getPokemonStorage().heal();
         for (int i = 0; i < trainer.getPokemonStorage().getAll().length; i++) {
             trainer.getPokemonStorage().set(i, null);
         }
-        List<PoolPokemon> clonedList = new ArrayList <>();
-        clonedList.addAll(pokemonList);
+        List <PoolPokemon> clonedList = new ArrayList <>(pokemonList);
         for (int i = 1; i < 7; i++) {
             if (i >= clonedList.size()) {
                 NPCPokemonPool.log.warn("Not enough pokemon existed in pool %id% to assign a full team of 6".replace("%id%", identifier));
@@ -59,7 +59,9 @@ public class Pool {
             }
             PoolPokemon poolPokemon = RandomHelper.getRandomElementFromCollection(clonedList);
             clonedList.removeIf(pm -> pm.identifier.equals(poolPokemon.identifier));
-            trainer.getPokemonStorage().add(poolPokemon.pokemon);
+            if (poolPokemon != null) {
+                trainer.getPokemonStorage().add(poolPokemon.pokemon);
+            }
         }
     }
 }
